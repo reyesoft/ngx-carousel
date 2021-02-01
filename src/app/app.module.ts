@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { NgxCarouselModule } from 'projects/ngx-carousel/src/public-api';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { NgxCarouselModule } from 'projects/ngx-carousel/src/public-api';
   ],
   imports: [
     BrowserModule,
-    NgxCarouselModule
+    NgxCarouselModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
