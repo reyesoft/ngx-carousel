@@ -1,5 +1,8 @@
 <p>Probando de crear la libreria</p>
 
 <rs-carousel>
-    holas
+    <ng-container *ngFor="let userComment of userComments">
+        <app-comment-card [image]="userComment.img" [title]="userComment.title" [content]="userComment.content" [alt]="userComment.alt"></app-comment-card>
+    </ng-container>
 </rs-carousel>
+

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { user_comments } from './components/comment-card/user-comments';
 
 @Component({
     selector: 'app-root',
@@ -7,11 +8,7 @@ import { HttpClient } from '@angular/common/http';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    title = 'ngx-carrousel';
+    public userComments = user_comments;
 
-    public constructor(private http: HttpClient) {
-        this.http.get('https://pokeapi.co/api/v2/pokemon?limit=4').subscribe((systems) => {
-            console.log(systems)
-        })
-    }
+    public constructor() {}
 }

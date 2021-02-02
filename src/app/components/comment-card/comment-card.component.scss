@@ -1,0 +1,36 @@
+@import 'src/assets/colors';
+
+p {
+    white-space: break-spaces;
+}
+
+.mat-card {
+    background-color: white;
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+.mat-card > *:first-child {
+    margin-bottom: 68px;
+}
+
+.image-container {
+    position: absolute;
+    top: -27px;
+    right: 34px;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.image-container img {
+    width: 100%;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}

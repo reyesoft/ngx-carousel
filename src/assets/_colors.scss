@@ -1,0 +1,96 @@
+$dark-primary-text: #008048;
+$light-primary-text: white;
+$dark-secondary-text: #3d3286;
+$light-secondary-text: white;
+$error-color-text: #ed1c24;
+
+$rs-secondary: (
+    50: #e9eaf4,
+    100: #c8c9e5,
+    200: #a5a6d4,
+    300: #8284c2,
+    400: #6968b5,
+    500: #534ea8,
+    600: #4d469e,
+    700: #443c92,
+    800: #3d3286,
+    900: #302070,
+    contrast: (
+        50: $dark-secondary-text,
+        100: $dark-secondary-text,
+        200: $dark-secondary-text,
+        300: $dark-secondary-text,
+        400: $light-secondary-text,
+        500: $light-secondary-text,
+        600: $light-secondary-text,
+        700: $light-secondary-text,
+        800: $light-secondary-text,
+        900: $light-secondary-text
+    )
+);
+
+$rs-primary: (
+    50: #dff6ed,
+    100: #b0e9d2,
+    200: #76dab6,
+    300: #00cc99,
+    400: #00c083,
+    500: #00b46e,
+    600: #00a463,
+    700: #009255,
+    800: #008048,
+    900: #006131,
+    contrast: (
+        50: $dark-primary-text,
+        100: $dark-primary-text,
+        200: $dark-primary-text,
+        300: $light-primary-text,
+        400: $light-primary-text,
+        500: $light-primary-text,
+        600: $light-primary-text,
+        700: $light-primary-text,
+        800: $light-primary-text,
+        900: $light-primary-text
+    )
+);
+
+$rs-warn: (
+    100: $error-color-text,
+    contrast: (
+        100: $dark-primary-text
+    )
+);
+
+@function rs-color-primary($variant: 300) {
+    @return map-get($map: $rs-primary, $key: $variant);
+}
+
+@function rs-color-secondary($variant: 900) {
+    @return map-get($map: $rs-secondary, $key: $variant);
+}
+
+$background: #f3f3f3;
+$color-accent: #7c4dff;
+$font-in-light: #4d4d4d;
+$font-in-dark: #e6e6e5;
+$color-step: #ceccd4;
+$color-icon-restart: #706f6f;
+$background-selected-system: #e6e3e3;
+$background-system-hover: #f2f0f0;
+$color-black-alpha-10: rgba(0, 0, 0, 0.1);
+$color-black-alpha-20: rgba(0, 0, 0, 0.2);
+$color-black-alpha-30: rgba(0, 0, 0, 0.3);
+$color-black-alpha-40: rgba(0, 0, 0, 0.4);
+$color-black-alpha-50: rgba(0, 0, 0, 0.5);
+$color-black-alpha-60: rgba(0, 0, 0, 0.6);
+$color-black-alpha-70: rgba(0, 0, 0, 0.7);
+$color-black-alpha-80: rgba(0, 0, 0, 0.8);
+$color-black-alpha-90: rgba(0, 0, 0, 0.9);
+$error-color-background: #ffdce3;
+$warning-color-background: #f7ef94;
+$info-color-background: rs-color-secondary(50);
+$success-color-background: rs-color-primary(100);
+$warning-color-text: #e77000;
+$info-color-text: rs-color-secondary();
+$success-color-text: rs-color-primary(900);
+$dark-background: rs-color-secondary();
