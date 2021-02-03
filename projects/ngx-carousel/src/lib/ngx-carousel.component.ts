@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, HostListener, Input, Renderer2, V
 import { interval } from 'rxjs';
 
 @Component({
-    selector: 'rs-carousel',
+    selector: 'ngx-carousel',
     templateUrl: './ngx-carousel.component.html',
     styleUrls: ['./ngx-carousel.component.scss']
 })

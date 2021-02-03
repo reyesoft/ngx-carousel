@@ -1,24 +1,53 @@
 # NgxCarousel
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.6.
+A simple library for creating carousel for Angular
 
-## Code scaffolding
+## Get started
 
-Run `ng generate component component-name --project ngx-carousel` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-carousel`.
-> Note: Don't forget to add `--project ngx-carousel` or else it will be added to the default project in your `angular.json` file. 
+1. Run ```bash yarn add ngx-carousel ``` or ```bash npm install ngx-carousel ```
+
+2. Import NgxCarouselModule into module a module which declares a component intended to have a carousel
+
+```
+import { NgxCarouselModule } from 'ngx-carousel';
+
+@NgModule({
+  imports: [ NgxCarouselModule ]
+})
+export class ExampleModule { }
+
+```
+
+3. Usage
+
+```
+<ngx-carousel
+    [animationTime]="..."
+    [slideTIme]="..."
+    [maxWidth]="...">
+
+    <div>Slide 1</div>
+    <div>Slide 2</div>
+    <div>Slide 3</div>
+    <div>Slide 4</div>
+    <div>Slide 5</div>
+
+</ngx-carousel>
+```
+
+## Local demo app
+
+```bash
+git clone https://github.com/reyesoft/ngx-carousel.git
+cd ngx-carousel
+yarn
+yarn start
+```
 
 ## Build
 
-Run `ng build ngx-carousel` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `yarn build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Publishing
 
 After building your library with `ng build ngx-carousel`, go to the dist folder `cd dist/ngx-carousel` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test ngx-carousel` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
