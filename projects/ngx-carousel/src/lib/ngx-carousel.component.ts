@@ -12,13 +12,13 @@ export class NgxCarouselComponent implements AfterViewInit{
     @Input() public carouselClass: string = 'carousel-container';
     @Input() public maxWidth: number = 1200;
     @Input() public sidePadding: number = 16;
-    @Input() public opacityElementSecondary: number = 0.4
+    @Input() public opacityElementSecondary: number = 0.4;
     @ViewChild('ngxCarousel', { static: true }) public ngxCarousel: undefined | ElementRef;
     @ViewChild('carouselContainer', { static: true }) public carouselContainer: undefined | ElementRef;
     private childrenCarousel: HTMLCollection;
     private quantityChildrenCarousel: number;
     private quantityColumns: number = 3;
-    private cubicBezier: string = 'cubic-bezier(0.4, 0.0, 0.2, 1)'
+    private cubicBezier: string = 'cubic-bezier(0.4, 0.0, 0.2, 1)';
     private auxMaxWidth: number;
 
     public constructor(private renderer: Renderer2) {}
@@ -58,7 +58,7 @@ export class NgxCarouselComponent implements AfterViewInit{
     }
 
     private setTransitionStyleCarousel(): void {
-        let translate = this.calculateSizeElementCarousel(this.maxWidth, this.quantityColumns)
+        let translate = this.calculateSizeElementCarousel(this.maxWidth, this.quantityColumns);
         this.renderer.setStyle(
             this.carouselContainer.nativeElement,
             'transform',
@@ -81,7 +81,7 @@ export class NgxCarouselComponent implements AfterViewInit{
         this.renderer.setStyle(this.carouselContainer.nativeElement, 'grid-template-columns', `repeat(${this.quantityChildrenCarousel}, 1fr)`);
 
         Array.from(this.childrenCarousel).forEach((children): void => {
-            this.renderer.setStyle(children, 'transition', 'all ' + this.slideTIme + 's ' + this.cubicBezier)
+            this.renderer.setStyle(children, 'transition', 'all ' + this.slideTIme + 's ' + this.cubicBezier);
         });
     }
 
