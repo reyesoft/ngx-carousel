@@ -1,6 +1,5 @@
-#ngx-carousel {
+.ngx-carousel {
     width: 100%;
-    max-width: 1200px;
     margin: 0 auto;
     overflow: hidden;
     box-sizing: border-box;
@@ -10,22 +9,19 @@
 .carousel-container {
     display: grid;
     margin-top: 54px;
-    grid-template-columns: repeat(14, 1fr);
     grid-gap: 16px;
-    width: 5600px;
 }
 
 :host ::ng-deep .carousel-container > * {
     box-sizing: border-box;
-    width: 90%;
+    width: 80%;
     display: inline-block;
     margin: 0 auto;
-    transition: all 2s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 :host ::ng-deep .center-children {
-    transform: scale(1.2);
     width: 90%;
+    transform: scale(1.2);
 }
 
 .animation {
@@ -37,6 +33,6 @@
         transform: translateX(0);
     }
     100%{
-        transform: translateX(-400px);
+        transform: translateX(-389.33px);
     }
 }

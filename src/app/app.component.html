@@ -1,8 +1,18 @@
-<p>Probando de crear la libreria</p>
+<div class="title-container">
+    <p>Demo carousel</p>
+</div>
 
 <rs-carousel>
     <ng-container *ngFor="let userComment of userComments">
         <app-comment-card [image]="userComment.img" [title]="userComment.title" [content]="userComment.content" [alt]="userComment.alt"></app-comment-card>
+    </ng-container>
+</rs-carousel>
+
+<rs-carousel *ngIf="systems">
+    <ng-container *ngFor="let system of systems">
+        <div>
+            <img src="https://panel.saldo.com.ar/img/sistemas2/{{system.id}}.big.png" alt="">
+        </div>
     </ng-container>
 </rs-carousel>
 

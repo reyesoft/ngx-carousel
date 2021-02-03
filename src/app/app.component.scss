@@ -1,0 +1,16 @@
+img {
+    width: 100%;
+}
+
+.title-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+    box-sizing: border-box;
+
+    p {
+        font-weight: bolder;
+        font-size: 30px;
+    }
+}
