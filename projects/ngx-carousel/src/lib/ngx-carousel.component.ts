@@ -8,11 +8,15 @@ import { interval } from 'rxjs';
 })
 export class NgxCarouselComponent implements AfterViewInit{
     @Input() public animationTime: number = 3;
-    @Input() public slideTIme: number = 2;
+    @Input() public slideTime: number = .4;
     @Input() public carouselClass: string = 'carousel-container';
     @Input() public maxWidth: number = 1200;
     @Input() public sidePadding: number = 16;
-    @Input() public opacityElementSecondary: number = 0.4;
+    @Input() public opacityElementSecondary: number = 0.25;
+    @Input() public moveItem: boolean = false;
+    @Input() public movement: boolean = false;
+    @Input() public isControls: boolean = false;
+    @Input() public isAutoplay: boolean = true;
     @ViewChild('ngxCarousel', { static: true }) public ngxCarousel: undefined | ElementRef;
     @ViewChild('carouselContainer', { static: true }) public carouselContainer: undefined | ElementRef;
     private childrenCarousel: HTMLCollection;
@@ -36,19 +40,12 @@ export class NgxCarouselComponent implements AfterViewInit{
         }
 
         this.setCenterClass(this.childrenCarousel);
-
-        interval(this.animationTime * 1000)
-            .subscribe(() => {
-                this.setTransitionStyleCarousel();
-                this.removeClass(this.childrenCarousel);
-                this.setClassNextChildren(this.childrenCarousel);
-
-                setTimeout(() => {
-                    this.removeTransitionStyleCarousel();
-                    this.carouselContainer.nativeElement.appendChild(this.childrenCarousel[0]);
-                    this.setCenterClass(this.childrenCarousel);
-                }, this.slideTIme * 1000);
-            })
+        if(this.isAutoplay){
+            interval(this.animationTime * 1000)
+                .subscribe(() => {
+                    this.prevItem()
+                })
+        }
     }
 
     private addDefaultSettings(): void {
@@ -57,17 +54,28 @@ export class NgxCarouselComponent implements AfterViewInit{
         this.auxMaxWidth = this.maxWidth;
     }
 
-    private setTransitionStyleCarousel(): void {
+    private setTransitionStyleCarousel(direction: string): void {
         let translate = this.calculateSizeElementCarousel(this.maxWidth, this.quantityColumns);
-        this.renderer.setStyle(
-            this.carouselContainer.nativeElement,
-            'transform',
-            `translateX(-${translate}px)`
-        );
+        switch (direction) {
+            case 'prev':
+                this.renderer.setStyle(
+                    this.carouselContainer.nativeElement,
+                    'transform',
+                    `translateX(-${translate}px)`
+                );
+                break;
+            case 'next':
+                this.renderer.setStyle(
+                    this.carouselContainer.nativeElement,
+                    'transform',
+                    `translateX(${translate}px)`
+                );
+                break;
+        }
         this.renderer.setStyle(
             this.carouselContainer.nativeElement,
             'transition',
-            'all ' + this.slideTIme + 's ' + this.cubicBezier
+            'all ' + this.slideTime + 's ' + this.cubicBezier
         );
     }
 
@@ -81,7 +89,7 @@ export class NgxCarouselComponent implements AfterViewInit{
         this.renderer.setStyle(this.carouselContainer.nativeElement, 'grid-template-columns', `repeat(${this.quantityChildrenCarousel}, 1fr)`);
 
         Array.from(this.childrenCarousel).forEach((children): void => {
-            this.renderer.setStyle(children, 'transition', 'all ' + this.slideTIme + 's ' + this.cubicBezier);
+            this.renderer.setStyle(children, 'transition', 'all ' + this.slideTime + 's ' + this.cubicBezier);
         });
     }
 
@@ -105,6 +113,7 @@ export class NgxCarouselComponent implements AfterViewInit{
     }
 
     private setStyleCarouselContainer(maxWidth: number): void {
+        console.log('render ', this.renderer)
         this.renderer.setStyle(
             this.carouselContainer.nativeElement,
             'width',
@@ -113,7 +122,7 @@ export class NgxCarouselComponent implements AfterViewInit{
     }
 
     private calculateSizeElementCarousel(width: number, quantityColumns: number): number {
-        return (width - (this.sidePadding * 2)) / quantityColumns;
+        return (width - (this.sidePadding * 1)) / quantityColumns;
     }
 
     @HostListener('window:resize', ['$event'])
@@ -139,38 +148,64 @@ export class NgxCarouselComponent implements AfterViewInit{
         this.setStyleCarouselContainer(event.target.innerWidth);
     }
 
-
-
     private setCenterClass(children): void {
+        switch (this.quantityColumns) {
+            case 3:
+                this.renderer.addClass(children[1], 'center-children');
+                break;
+            case 5: 
+                this.renderer.addClass(children[2], 'center-children');
+                break;
+        }
+    }
+
+    private setClassChildren(children, direction: string): void {
         if (this.quantityColumns === 1) {
             return;
         }
-        this.setStylesChildren([children[0], children[1], children[2]]);
-    }
-
-    private setClassNextChildren(children): void {
-        if (this.quantityColumns === 1) {
-            return;
+        switch (direction) {
+            case 'next':
+                this.renderer.addClass(children[1], 'center-children');
+                break;
+            case 'prev':
+                this.renderer.addClass(children[0], 'center-children');
+                break;
         }
-        this.setStylesChildren([children[1], children[2], children[3]]);
-    }
-
-    private setStylesChildren(children: Array<any>): void {
-        this.renderer.setStyle(children[0], 'opacity', this.opacityElementSecondary);
-        this.renderer.setStyle(children[2], 'opacity', this.opacityElementSecondary);
-        this.renderer.addClass(children[1], 'center-children');
     }
 
     private removeClass(children): void {
-        if (this.quantityColumns === 1) {
-            this.renderer.setStyle(this.childrenCarousel[0], 'opacity', '1');
-            this.renderer.setStyle(this.childrenCarousel[0], 'transform', 'scale(1)');
-            this.renderer.removeClass(this.childrenCarousel[0], 'center-children');
-
-            return;
-        }
-        this.renderer.setStyle(children[0], 'opacity', '1');
-        this.renderer.setStyle(children[2], 'opacity', '1');
         this.renderer.removeClass(children[1], 'center-children');
     }
-}1
+
+    public prevItem(): void {
+        this.moveItem = true;
+        this.setTransitionStyleCarousel('prev');
+        
+        if(this.moveItem === true){
+            setTimeout(() => {
+                this.setClassChildren(this.childrenCarousel, 'next');
+                this.removeClass(this.childrenCarousel);
+                this.removeTransitionStyleCarousel();
+                this.carouselContainer.nativeElement.appendChild(this.childrenCarousel[0]);
+                this.setCenterClass(this.childrenCarousel);
+                this.moveItem = false;
+            }, this.slideTime * 600);
+        }
+    }
+
+    public nextItem(): void {
+        this.moveItem = true;
+        this.setTransitionStyleCarousel('next');
+        
+        if(this.moveItem === true){
+            setTimeout(() => {
+                this.setClassChildren(this.childrenCarousel, 'prev');
+                this.removeClass(this.childrenCarousel);
+                this.removeTransitionStyleCarousel();
+                this.childrenCarousel[0].before(this.childrenCarousel[this.childrenCarousel.length - 1]);
+                this.setCenterClass(this.childrenCarousel);
+                this.moveItem = false;
+            }, this.slideTime * 600);
+        }
+    }
+}

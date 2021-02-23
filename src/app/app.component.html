@@ -2,11 +2,13 @@
     <p>Demo carousel</p>
 </div>
 
-<ngx-carousel>
+<ngx-carousel [isControls]="true" [isAutoplay]="false">
     <ng-container *ngFor="let userComment of userComments">
         <app-comment-card [image]="userComment.img" [title]="userComment.title" [content]="userComment.content" [alt]="userComment.alt"></app-comment-card>
     </ng-container>
 </ngx-carousel>
+
+<br>
 
 <ngx-carousel *ngIf="systems">
     <ng-container *ngFor="let system of systems">

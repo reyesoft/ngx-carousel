@@ -2,4 +2,16 @@
     <div #carouselContainer class="carousel-container">
         <ng-content></ng-content>
     </div>
+    <div *ngIf="isControls">
+        <a (click)="prevItem()" class="carousel-control prev">
+            <div class="carousel-control-prev-cont">
+                <span class="carousel-control-icon prev"></span>
+            </div>
+        </a>
+        <a (click)="nextItem()" class="carousel-control next">
+            <div class="carousel-control-prev-cont">
+                <span class="carousel-control-icon next"></span>
+            </div>
+        </a>
+    </div>
 </div>
